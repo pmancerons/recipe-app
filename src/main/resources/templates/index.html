@@ -6,5 +6,32 @@
 </head>
 <body>
     <h1>My Recipes!</h1>
+
+    <div th:each="recipe: ${recipes}">
+        <h3 th:text="${recipe.description}">Receta</h3>
+        <div th:each="categorie: ${recipe.categories}">
+            <label th:text="${categorie.description}">categorie</label>
+        </div>
+
+        <table>
+            <tr>
+                <th>Ingredientes</th>
+            </tr>
+            <tr>
+                <th>cantidad</th>
+                <th>unidad</th>
+                <th>descripcion</th>
+            </tr>
+            <!--/*@thymesVar id="ingredient" type="curso.springframework.recipeapp.domain.Ingredient"*/-->
+            <tr th:each="ingredient: ${recipe.ingredients}">
+                <td th:text="${ingredient.amount}">1</td>
+                <!--/*@thymesVar id="unitOfMeasure" type="curso.springframework.recipeapp.domain.UnitOfMeasure"*/-->
+                <td th:text="${ingredient.unitOfMeasure.description}">cup</td>
+                <td th:text="${ingredient.description}">sugar</td>
+            </tr>
+        </table>
+
+        <label th:text="${recipe.notes.recipeNotes}"> notas </label>
+    </div>
 </body>
 </html>
