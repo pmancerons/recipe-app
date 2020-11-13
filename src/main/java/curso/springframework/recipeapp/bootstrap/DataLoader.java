@@ -4,13 +4,16 @@ import curso.springframework.recipeapp.domain.*;
 import curso.springframework.recipeapp.repositories.CategoryRepository;
 import curso.springframework.recipeapp.repositories.RecipeRepository;
 import curso.springframework.recipeapp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Component
 public class DataLoader implements CommandLineRunner{
 
@@ -25,8 +28,10 @@ public class DataLoader implements CommandLineRunner{
     }
 
     @Override
+    //@Transactional //according to the course the application  may fail if we dont have this annotation
     public void run(String... args) throws Exception {
         loadPerfectGuacamole();
+        log.debug("loading data");
     }
 
     private void loadPerfectGuacamole(){
