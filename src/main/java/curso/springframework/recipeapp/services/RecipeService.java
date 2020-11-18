@@ -1,5 +1,6 @@
 package curso.springframework.recipeapp.services;
 
+import curso.springframework.recipeapp.commands.RecipeCommand;
 import curso.springframework.recipeapp.domain.Recipe;
 import curso.springframework.recipeapp.repositories.RecipeRepository;
 
@@ -10,4 +11,6 @@ public interface RecipeService {
     Set<Recipe> getRecipes();
 
     Recipe findById(Long id);
+
+    RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand);
 }

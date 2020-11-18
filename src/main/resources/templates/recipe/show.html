@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe</title>
+    <link rel="stylesheet"th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <!--    <script th:src="@{/webjars/popper.js/2.5.2/umd/popper.min.js}"></script>-->
+    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="col justify-content-md-center">
+        <div class="card" >
+
+            <div class="card-header">
+                <h3 th:text="${recipe.description}">Recipe description</h3>
+            </div>
+
+            <div class="card-body">
+                <table>
+                    <tr>
+                        <th width="25%">Categories:</th>
+                        <td width="25%">
+                            <ul>
+                                <li th:each="categorie: ${recipe.categories}">
+                                    <label th:text="${categorie.description}">category</label>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="25%">Prep time:</th>
+                        <td width="25%" th:text="${recipe.prepTime} + ' min' "> 30 min</td>
+                        <th width="25%">Difficulty </th>
+                        <td width="25%" th:text="${recipe.difficulty}"> Easy </td>
+                    </tr>
+                    <tr>
+                        <th>Cook time: </th>
+                        <td th:text="${recipe.cookTime} + ' min' "> 30 min</td>
+                        <th> Servings </th>
+                        <td > 4 </td>
+                    </tr>
+                    <tr>
+                        <th>Source :</th>
+                        <td th:text="${recipe.source}">source</td>
+                        <th>URL</th>
+                        <td th:text="${recipe.url}"> http://recipes.com </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card" >
+            <div class="card-header">
+                <h3>Ingredients</h3>
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-hover">
+                    <!--/*@thymesVar id="ingredient" type="curso.springframework.recipeapp.domain.Ingredient"*/-->
+                    <!--/*@thymesVar id="unitOfMeasure" type="curso.springframework.recipeapp.domain.UnitOfMeasure"*/-->
+                    <tr th:each="ingredient: ${recipe.ingredients}" >
+                        <td th:text="${ingredient.amount} + ' '
+                            + ${ingredient.unitOfMeasure.description} + ' of '
+                            + ${ingredient.description}">1 cup of sugar</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Directions</h3>
+            </div>
+
+            <div class="card-body">
+                <blockquote class="blockquote">
+                    <label th:text="${recipe.directions}"> directions </label>
+                </blockquote>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Notes</h3>
+            </div>
+
+            <div class="card-body">
+                <blockquote class="blockquote">
+                    <label th:text="${recipe.notes.recipeNotes}"> notes </label>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

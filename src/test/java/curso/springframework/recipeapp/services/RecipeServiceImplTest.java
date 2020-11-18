@@ -1,9 +1,9 @@
 package curso.springframework.recipeapp.services;
 
+import curso.springframework.recipeapp.converters.RecipeCommandToRecipe;
+import curso.springframework.recipeapp.converters.RecipeToRecipeCommand;
 import curso.springframework.recipeapp.domain.Recipe;
 import curso.springframework.recipeapp.repositories.RecipeRepository;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -24,10 +24,17 @@ class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
