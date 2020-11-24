@@ -4,12 +4,15 @@ import curso.springframework.recipeapp.converters.RecipeCommandToRecipe;
 import curso.springframework.recipeapp.converters.RecipeToRecipeCommand;
 import curso.springframework.recipeapp.domain.Recipe;
 import curso.springframework.recipeapp.repositories.RecipeRepository;
+import javafx.beans.binding.Bindings;
+import org.assertj.core.internal.bytebuddy.matcher.ElementMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.client.ExpectedCount;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -67,5 +70,12 @@ class RecipeServiceImplTest {
 
         //verifies that the findAll method is going to be called only one time
         Mockito.verify(recipeRepository,Mockito.times(1)).findAll();
+    }
+
+    @Test
+    void deleteRecipe(){
+        recipeService.deleteById(1l);
+
+        Mockito.verify(recipeRepository, Mockito.times(1)).deleteById(ArgumentMatchers.anyLong());
     }
 }

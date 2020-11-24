@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredients</title>
+    <link rel="stylesheet"th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <!--    <script th:src="@{/webjars/popper.js/2.5.2/umd/popper.min.js}"></script>-->
+    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="col justify-content-md-center">
+        <div class="card" >
+            <div class="card-header">
+                <h3>Ingredients</h3>
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-hover" th:if="${not #lists.isEmpty(recipe.ingredients)}">
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>View</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    <!--/*@thymesVar id="ingredient" type="curso.springframework.recipeapp.domain.Ingredient"*/-->
+                    <!--/*@thymesVar id="unitOfMeasure" type="curso.springframework.recipeapp.domain.UnitOfMeasure"*/-->
+                    <tr th:each="ingredient: ${recipe.ingredients}" >
+                        <td th:text="${ingredient.id}"></td>
+                        <td th:text="${ingredient.amount} + ' '
+                            + ${ingredient.unitOfMeasure.description} + ' of '
+                            + ${ingredient.description}">1 cup of sugar</td>
+                        <td> <a href="#" th:href="@{'/recipe/'+ ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/show/' }">View</a></td>
+                        <td> <a href="#" th:href="@{'/recipe/'+ ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update/' }">Update</a></td>
+                        <td> <a href="#" th:href="@{'/recipe/'+ ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete/' }">Delete</a></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
