@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Ingredient</title>
+    <link rel="stylesheet"th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <!--    <script th:src="@{/webjars/popper.js/2.5.2/umd/popper.min.js}"></script>-->
+    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<form  th:object="${ingredient}" th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'}"  method="post">
+    <div class="container"  style="margin: 20px 0px 20px 0px">
+        <div class="row">
+            <div class="col justify-content-md-center">
+                <div class="card" >
+                    <div class="card-header">
+                        <h3>Edit Ingredient</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="container">
+                            <div class="row justify-content-md-center ">
+                                <div class="col-4 form-group">
+                                    <label>Amount</label>
+                                </div>
+                                <div class="col-4 form-group">
+                                    <label>Description</label>
+                                </div>
+                                <div class="col-4 form-group">
+                                    <label>Unit of measure</label>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-4 form-group">
+                                    <input type="text"  class="form-control" th:field="*{amount}"/>
+                                </div>
+                                <div class="col-4 form-group">
+                                    <input type="text"  class="form-control" th:field="*{description}"/>
+                                </div>
+                                <div class="col-4 form-group">
+                                    <select class="form-control" th:field="*{unitOfMeasure.id}">
+                                        <!--/*@thymesVar id="equals" type="curso.springframework.recipeapp.commands.UnitOfMeasureCommand"*/-->
+                                        <option th:each="uomEach : ${uomList}"
+                                                th:value="${uomEach.id}"
+                                                th:selected="${uomEach.id.equals(ingredient.unitOfMeasure.id)}"
+                                                th:text="${uomEach.description}"> Each </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
