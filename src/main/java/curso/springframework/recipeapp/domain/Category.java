@@ -1,15 +1,15 @@
 package curso.springframework.recipeapp.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
-@EqualsAndHashCode(exclude = {"recipes"})
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Category {
 

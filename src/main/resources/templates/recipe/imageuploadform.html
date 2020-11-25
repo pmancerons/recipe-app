@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Image Upload Form</title>
+    <link rel="stylesheet"th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <!--    <script th:src="@{/webjars/popper.js/2.5.2/umd/popper.min.js}"></script>-->
+    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
+<div class="container" style="margin-top: 20px">
+    <div class="row">
+        <div class="col justify-content-md-center">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="panel-title">Upload a new recipe image</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
+                                   th:action="@{'/recipe/' + ${recipe.getId()} + '/image'}">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input id="inputGroupFile01"  name="imagefile" type="file" class="custom-file-input" aria-describedby="inputGroupFile01Addon04">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFile01Addon04">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package curso.springframework.recipeapp.controllers;
 
 import curso.springframework.recipeapp.commands.IngredientCommand;
+import curso.springframework.recipeapp.commands.UnitOfMeasureCommand;
 import curso.springframework.recipeapp.services.IngredientService;
 import curso.springframework.recipeapp.services.RecipeService;
 import curso.springframework.recipeapp.services.UnitOfMeasureService;
@@ -54,5 +55,27 @@ public class IngredientController {
         IngredientCommand savedIngredientCommand = ingredientService.saveIngredientCommand(ingredientCommand);
         return  "redirect:/recipe/" + savedIngredientCommand.getRecipeId()
                 + "/ingredient/" + savedIngredientCommand.getId() + "/show";
+    }
+
+    @GetMapping("/recipe/{recipeId}/ingredient/new")
+    public String createNewIngredient(@PathVariable String recipeId,Model model){
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+
+        model.addAttribute("ingredient", ingredientCommand);
+        model.addAttribute("uomList",unitOfMeasureService.findAll());
+
+        return "recipe/ingredients/ingredientform";
+    }
+
+
+    @GetMapping("/recipe/{recipeId}/ingredient/{ingredientId}/delete")
+    public String deleteIngredient(@PathVariable String recipeId,
+            @PathVariable String ingredientId){
+
+        ingredientService.deleteById(Long.valueOf(recipeId),Long.valueOf(ingredientId));
+
+        return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 }

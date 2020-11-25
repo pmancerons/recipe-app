@@ -1,12 +1,12 @@
 package curso.springframework.recipeapp.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
-@EqualsAndHashCode(exclude = {"recipe"})
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Notes {
 

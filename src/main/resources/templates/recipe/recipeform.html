@@ -9,7 +9,7 @@
     <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<!--/*@thymesVar id="recipe" type="curso.springframework.recipeapp.domain.Recipe"*/-->
+<!--/*@thymesVar id="recipe" type="curso.springframework.recipeapp.commands.RecipeCommand"*/-->
 <div class="container" style="margin: 20px 0px 20px 0px">
     <div class="row row-cols-1">
         <div class="col justify-content-md-center">
@@ -55,12 +55,13 @@
                                     <label>Cooktime:</label>
                                     <input type="text" class="form-control" th:field="*{cookTime}"/>
                                 </div>
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-3">
                                     <label>Difficulty:</label>
-                                    <select class="form-control">
-                                        <option>Easy</option>
-                                        <option>Medium</option>
-                                        <option>Hard</option>
+                                    <select th:field="*{difficulty}">
+                                        <option th:each="difficultyValue :
+                                                    ${T(curso.springframework.recipeapp.domain.Difficulty).values()}"
+                                                th:value="${difficultyValue.name()}"
+                                                th:text="${difficultyValue.name()}">Easy</option>
                                     </select>
                                 </div>
                             </div>
@@ -103,6 +104,7 @@
                                             th:text="${(ingredient.getAmount() +
                                         ' ' + ingredient.unitOfMeasure.getDescription() +
                                         ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
+
                                         </li>
                                     </ul>
                                 </div>

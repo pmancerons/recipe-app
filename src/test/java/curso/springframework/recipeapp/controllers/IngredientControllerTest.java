@@ -104,8 +104,27 @@ class IngredientControllerTest {
                 .param("description", "desc")
             ).andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/recipe/1/ingredient/2/show"));
-
-
     }
 
+    @Test
+    public void testNewIngredientTest() throws Exception {
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1l);
+
+        Mockito.when(recipeService.findCommandById(ArgumentMatchers.anyLong())).thenReturn(recipeCommand);
+        Mockito.when(unitOfMeasureService.findAll()).thenReturn(new HashSet<>());
+
+        mockMvcIngredientController.perform(MockMvcRequestBuilders.get("/recipe/1/ingredient/new"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("recipe/ingredients/ingredientform"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("ingredient"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("uomList"));
+    }
+
+    @Test
+    public void testDeleteIngredient() throws Exception {
+        mockMvcIngredientController.perform(MockMvcRequestBuilders.get("/recipe/1/ingredient/1/delete"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/recipe/1/ingredients"));
+    }
 }

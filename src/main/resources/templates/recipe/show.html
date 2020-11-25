@@ -11,10 +11,22 @@
 <body>
 <div class="container">
     <div class="col justify-content-md-center">
-        <div class="card" >
-
+        <div class="my-3">
+            <div class="card" >
             <div class="card-header">
-                <h3 th:text="${recipe.description}">Recipe description</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h3>
+                    </div>
+
+                    <div class="col-md-6">
+                        <a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/image'}">
+                            <button type="button" class="btn btn-secondary float-right">
+                                Change Image
+                            </button>
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <div class="card-body">
@@ -27,6 +39,11 @@
                                     <label th:text="${categorie.description}">category</label>
                                 </li>
                             </ul>
+                        </td>
+                        <td>
+                            <img src="../../static/images/guacamole400x400WithX.jpg"
+                                 th:src="@{/images/guacamole400x400WithX.jpg}"
+                                 width="200" height="200">
                         </td>
                     </tr>
                     <tr>
@@ -50,61 +67,68 @@
                 </table>
             </div>
         </div>
+        </div>
 
-        <div class="card" >
-            <div class="card-header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-6">
-                            <h3>Ingredients</h3>
-                        </div>
-                        <div class="col-6">
-                            <a th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}">
-                                <button type="button" class="btn btn-secondary  float-right">
-                                    View
-                                </button>
-                            </a>
+        <div class="my-3">
+            <div class="card" >
+                <div class="card-header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <h3>Ingredients</h3>
+                            </div>
+                            <div class="col-6">
+                                <a th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}">
+                                    <button type="button" class="btn btn-secondary  float-right">
+                                        View
+                                    </button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card-body">
+                <div class="card-body">
 
-                <table class="table table-hover">
-                    <!--/*@thymesVar id="ingredient" type="curso.springframework.recipeapp.domain.Ingredient"*/-->
-                    <!--/*@thymesVar id="unitOfMeasure" type="curso.springframework.recipeapp.domain.UnitOfMeasure"*/-->
-                    <tr th:each="ingredient: ${recipe.ingredients}" >
-                        <td th:text="${ingredient.amount} + ' '
-                            + ${ingredient.unitOfMeasure.description} + ' of '
-                            + ${ingredient.description}">1 cup of sugar</td>
-                    </tr>
-                </table>
+                    <table class="table table-hover">
+                        <!--/*@thymesVar id="ingredient" type="curso.springframework.recipeapp.domain.Ingredient"*/-->
+                        <!--/*@thymesVar id="unitOfMeasure" type="curso.springframework.recipeapp.domain.UnitOfMeasure"*/-->
+                        <tr th:each="ingredient: ${recipe.ingredients}" >
+                            <td th:text="${ingredient.amount} + ' '
+                                + ${ingredient.unitOfMeasure.description} + ' of '
+                                + ${ingredient.description}">1 cup of sugar</td>
+                        </tr>
+                    </table>
 
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h3>Directions</h3>
-            </div>
-
-            <div class="card-body">
-                <blockquote class="blockquote">
-                    <label th:text="${recipe.directions}"> directions </label>
-                </blockquote>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <h3>Notes</h3>
-            </div>
+        <div class="my-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Directions</h3>
+                </div>
 
-            <div class="card-body">
-                <blockquote class="blockquote">
-                    <label th:text="${recipe.notes.recipeNotes}"> notes </label>
-                </blockquote>
+                <div class="card-body">
+                    <blockquote class="blockquote">
+                        <label th:text="${recipe.directions}"> directions </label>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Notes</h3>
+                </div>
+
+                <div class="card-body">
+                    <blockquote class="blockquote">
+                        <label th:text="${recipe.notes.recipeNotes}"> notes </label>
+                    </blockquote>
+                </div>
             </div>
         </div>
     </div>
