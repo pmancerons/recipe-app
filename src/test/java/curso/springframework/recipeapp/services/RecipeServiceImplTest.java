@@ -3,6 +3,7 @@ package curso.springframework.recipeapp.services;
 import curso.springframework.recipeapp.converters.RecipeCommandToRecipe;
 import curso.springframework.recipeapp.converters.RecipeToRecipeCommand;
 import curso.springframework.recipeapp.domain.Recipe;
+import curso.springframework.recipeapp.exceptions.NotFoundException;
 import curso.springframework.recipeapp.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,4 +76,14 @@ class RecipeServiceImplTest {
 
         Mockito.verify(recipeRepository, Mockito.times(1)).deleteById(ArgumentMatchers.anyLong());
     }
+
+    @Test
+    void getRecipeByIdNotFound(){
+        Optional<Recipe> optionalRecipe = Optional.empty();
+
+        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(optionalRecipe);
+
+        assertThrows(NotFoundException.class, ()->recipeService.findById(1l));
+    }
+
 }

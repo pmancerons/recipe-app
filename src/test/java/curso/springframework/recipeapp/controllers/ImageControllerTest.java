@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -36,7 +37,9 @@ class ImageControllerTest {
         MockitoAnnotations.initMocks(this);
 
         controller = new ImageController(imageService, recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice( new ControllerExceptionHandler())
+                .build();
     }
 
     @Test
@@ -94,4 +97,12 @@ class ImageControllerTest {
 
         Assertions.assertEquals(s.getBytes().length, responseBytes.length);
     }
+
+    @Test
+    public void testGetNotANumber() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/uno/recipeimage"))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.view().name("400error"));
+    }
+
 }

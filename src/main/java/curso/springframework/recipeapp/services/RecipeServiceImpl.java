@@ -4,12 +4,14 @@ import curso.springframework.recipeapp.commands.RecipeCommand;
 import curso.springframework.recipeapp.converters.RecipeCommandToRecipe;
 import curso.springframework.recipeapp.converters.RecipeToRecipeCommand;
 import curso.springframework.recipeapp.domain.Recipe;
+import curso.springframework.recipeapp.exceptions.NotFoundException;
 import curso.springframework.recipeapp.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -37,7 +39,13 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long id) {
-        return recipeRepository.findById(id).orElse(null);
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+
+        if(!recipeOptional.isPresent()){
+            throw new NotFoundException("Recipe not found for Id value: " + id);
+        }
+
+        return recipeOptional.get();
     }
 
     @Override
